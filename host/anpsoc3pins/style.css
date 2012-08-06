@@ -1,0 +1,97 @@
+/* stylesheet for Poerful PSoC3 board support */
+
+body {
+    text-align: center;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 22px;
+    color: white;
+}
+div.header {	
+    width: 314px;
+    margin-right: auto;
+    margin-left: auto;
+    border: solid 20px white;
+    border-right: solid 400px white;
+    border-bottom: solid 40px white;
+    
+}
+div.content {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #00e302;
+    border: solid 7px;
+    border-color: #b87d41;
+    text-align: left;
+}
+
+div.firstcolumn {
+    width: 110px;
+    margin-left: 0px;
+    margin-right: -1100px;
+    margin-top: 20px;
+    float: left;
+    background-color: #00e302;
+
+}
+
+div.secondcolumn {
+    width: 110px;
+    float: left;
+    margin-left: 180px;
+    margin-top: 20px;
+    background-color: #00e302;
+
+}
+
+div.footer {
+    text-align: center;
+}
+
+div.footer p {
+    margin: 20px;
+    color: black;
+}
+
+div.footerdeveloper a {
+  font-weight: bold;
+}
+
+div.footerdeveloper {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+}
+
+div.errorreport p {
+    margin: 20px;
+}
+
+div.clear {
+    clear: both;
+}
+
+input.formbutton {
+    clear: both;
+    display: inline;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#rightbutton {
+    float: right;
+    margin-top: -40px;
+}
+
+#debugbutton {
+    float: left;
+}
+
+#rightlink {
+    float: right;
+}
