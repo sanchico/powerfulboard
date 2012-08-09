@@ -1,1 +1,0 @@
-These images show how the Powerful PSoC3 board can be plugged into the Cypress CY3210-PSoCEVAL1 board.  First connectors have to be placed on the Powerful PSoC3 board as shown in one of the images. In this application the EVAL1 board is used simply to provide an led and series resistor on PIN1.
