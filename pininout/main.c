@@ -1,6 +1,6 @@
 /* ========================================
  *
- * Copyright Ansync Inc, 2012
+ * Copyright Ansync Inc, 2012, 2013
  
  * Set pins according to message from host using command byte.
  * Return state of pins to host using command byte.
@@ -8,7 +8,7 @@
 */
 #include <device.h>
 #include "tracer.h"
-#define NUMBERPINS 43
+#define NUMBERPINS 32
 
 uint8 OUTbuffer[64];
 uint8 INbuffer[64];
@@ -31,25 +31,25 @@ void main()
 	//Enable Global Interrupts
 	CYGlobalIntEnable;
 	   
-	USBFS_1_Start(0, USBFS_1_3V_OPERATION); //Activates the component for use with the device and specific voltage mode.
+	USBFS_Start(0, USBFS_3V_OPERATION); //Activates the component for use with the device and specific voltage mode.
 	antrace(0x01);
-	while(!USBFS_1_bGetConfiguration());
+	while(!USBFS_bGetConfiguration());
 	//Wait for Device to enumerate
 	
 	antrace(0x02);
-	USBFS_1_IsConfigurationChanged();  // not interested in this change
-	USBFS_1_EnableOutEP(1);
+	USBFS_IsConfigurationChanged();  // not interested in this change
+	USBFS_EnableOutEP(1);
     antrace(0x03);
 	
 	for(;;){
-		if(USBFS_1_bGetEPState(1) == USBFS_1_OUT_BUFFER_FULL) {
+		if(USBFS_bGetEPState(1) == USBFS_OUT_BUFFER_FULL) {
 		    antrace(0x05);
-		    my_bc = USBFS_1_GetEPCount(1);  // get the size of requested transfer
+		    my_bc = USBFS_GetEPCount(1);  // get the size of requested transfer
 			
 		    bctens = (uint8)my_bc/10;
 		    bcunits = my_bc % 10;
 			
-			USBFS_1_ReadOutEP(1, OUTbuffer, my_bc);  // read the data and copy into OUTbuffer
+			USBFS_ReadOutEP(1, OUTbuffer, my_bc);  // read the data and copy into OUTbuffer
 			
 			rc = processHostOutput(OUTbuffer, mypins);
 		  			
@@ -63,13 +63,13 @@ void main()
 				INbuffer[i] = CyPins_ReadPin(mypins[i - 1]);
 			}
 
-		    while((USBFS_1_bGetEPState(2) != USBFS_1_IN_BUFFER_EMPTY));
+		    while((USBFS_bGetEPState(2) != USBFS_IN_BUFFER_EMPTY));
 		
 			antrace(0x06);
-			USBFS_1_LoadInEP(2, INbuffer, 64);   //FIXME       
+			USBFS_LoadInEP(2, INbuffer, 64);   //FIXME       
          } else {
-		    if(USBFS_1_IsConfigurationChanged()) {  // this is set by SetConfiguration and SetInterface
-			    USBFS_1_EnableOutEP(1);
+		    if(USBFS_IsConfigurationChanged()) {  // this is set by SetConfiguration and SetInterface
+			    USBFS_EnableOutEP(1);
 				antrace(0x07);
 			}
 		}	  
@@ -142,17 +142,6 @@ int processHostOutput(uint8* OUTbuffer, uint16* mypins)
    mypins[29] = Pin0_29;
    mypins[30] = Pin0_30;
    mypins[31] = Pin0_31;
-   mypins[32] = Pin0_32; //starts non-connected pins
-   mypins[33] = Pin0_33; 
-   mypins[34] = Pin0_34;
-   mypins[35] = Pin0_35;
-   mypins[36] = Pin0_36;
-   mypins[37] = Pin0_37;
-   mypins[38] = Pin0_38;
-   mypins[39] = Pin0_39;
-   mypins[40] = Pin0_40;
-   mypins[41] = Pin0_41;
-   mypins[42] = Pin0_42; //p1.2, no pair
    }
  
 /* [] END OF FILE */
