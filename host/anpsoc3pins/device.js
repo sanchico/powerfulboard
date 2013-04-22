@@ -1,4 +1,4 @@
-var    ref = require('./node_modules/ffi/node_modules/ref');
+var    ref = require('/node_modules/ffi/node_modules/ref');
 var    ffi  = require('ffi');
 var    util = require('util');
 
@@ -7,8 +7,8 @@ var uintPtr = ref.refType('uint');
 var lv = new ffi.Library("./libvita", {
 	"vitaInit":         ["int",    []                                 ],
 	"vitaClose":        ["int",    ["int"]                            ],
-	"USBLIB_new":       ["int",    ["uint", "uint", "string"]         ],
-        "USBLIB_setdebug":  ["int",    ["int"]                            ],
+	"USBLIB_new":       ["int",    ["uint", "uint", "string", "string"]         ],
+    "USBLIB_setdebug":  ["int",    ["int"]                            ],
 	"ANpsoc3_new":      ["int",    ["int"]                            ],
 	"ANpsoc3_setpins":  ["int",    ["int", "int", "int", "int"]       ], // use int rather than unint
 	"ANpsoc3_getpins":  ["int",    ["int", "int"]                     ],
@@ -64,7 +64,7 @@ function getpins() {
         bh = null;
         return rc;
     } else {
-	log("device          -- success getting pins: handle %d", bh);
+	log("device          -- success with request to get pins: handle %d", bh);
     }
 
     if((rc = lv.ANpsoc3_readpins(bh, INep, NUMBERPINS, pinsdata00)) < 0) {
@@ -87,7 +87,7 @@ function init() {
     }
 
     if (bh === null) {
-        outPort = lv.USBLIB_new(0x165F, 0, "0");
+        outPort = lv.USBLIB_new(0x165F, 0, "0", "0");
 
         if (outPort <= 0) {
             log("device          -- unable to find USB device.  Is it plugged in?");
